@@ -1,0 +1,22 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Mi Sitio Web{% endblock %}</title>
+       {% tailwind_css %}
+</head>
+<body>
+    <header>
+        <h1>Encabezado común a todas las páginas</h1>
+    </header>
+    
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    
+    <footer>
+        <p>Pie de página común a todas las páginas</p>
+    </footer>
+</body>
+</html>
