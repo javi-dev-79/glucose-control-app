@@ -123,7 +123,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 # Set the URL for serving static files
-STATIC_URL = '/static/'
+STATIC_URL = 'static/'
 
 # Define the directory where collectstatic will put static files for deployment.
 STATIC_ROOT = BASE_DIR / 'staticfiles'
