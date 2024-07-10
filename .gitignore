@@ -298,9 +298,13 @@ pip-selfcheck.json
 # End of https://www.toptal.com/developers/gitignore/api/python,visualstudiocode,django,venv
 
 glucoapp/static
+glucoapp/static_src
 /glucoapp/static_nginx
 /staticfiles
 
 exports
 
 /glucoapp/static/css
+
+# Ignorar archivos generados por Python
+*/__pycache__/
