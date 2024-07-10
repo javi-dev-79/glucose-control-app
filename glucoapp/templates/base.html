@@ -1,12 +1,15 @@
 <!-- templates/base.html -->
 
-{% load static tailwind_tags %}
+{% load static %}
+{% load tailwind_tags %}
 {% load crispy_forms_tags %}
+{% load i18n %}
+
 <!DOCTYPE html>
-<html lang="es" class="bg-light_red font-spline inset-0 mx-5">
+<html lang="{{ LANGUAGE_CODE }}" class="bg-light_red font-spline inset-0 mx-5">
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Mi Sitio Web{% endblock %}</title>
+        <title>{% block title %}{% trans 'Mi Sitio Web' %}{% endblock %}</title>
         {% tailwind_css %}
     </head>
     <body
@@ -15,7 +18,8 @@
         <header class="text-custom_black mb-5">
             <div
                 class="flex justify-between items-center bg-light_salmon rounded-3xl border-2 border-custom_black py-3 px-5">
-                <h1 class="text-2xl font-bold py-3">Gluco Control App</h1>
+                <h1 class="text-2xl font-bold py-3">{% trans 'Gluco Control App'
+                    %}</h1>
 
                 <!-- Botón de hamburguesa para pantallas pequeñas y medianas -->
                 <div class="block lg:hidden">
@@ -30,15 +34,28 @@
                     class="hidden lg:hidden absolute right-0 top-0 mt-16 bg-light_salmon rounded-3xl border-2 border-custom_black p-3">
                     <ul class="flex flex-col space-y-2">
                         <li><a href="{% url 'home' %}"
-                                class="text-lg hover:underline">Inicio</a></li>
+                                class="text-lg hover:underline">{% trans
+                                'Inicio' %}</a></li>
                         <li><a href="{% url 'add_glucose_reading' %}"
-                                class="text-lg hover:underline">Añadir</a></li>
+                                class="text-lg hover:underline">{% trans
+                                'Añadir' %}</a></li>
                         <li><a href="{% url 'glucose_readings' %}"
-                                class="text-lg hover:underline">Lecturas</a></li>
+                                class="text-lg hover:underline">{% trans
+                                'Lecturas' %}</a></li>
                         <li><a href="{% url 'glucose_chart' %}"
-                                class="text-lg hover:underline">Gráficas</a></li>
-                        <li><a href="{% url 'login' %}"
-                                class="hover:bg-bright_red rounded-2xl py-2 px-6">Acceder</a></li>
+                                class="text-lg hover:underline">{% trans
+                                'Gráficas' %}</a></li>
+                        <li>
+                            {% if user.is_authenticated %}
+                            <a href="{% url 'logout' %}"
+                                class="hover:bg-bright_red rounded-2xl py-2 px-6">{%
+                                trans 'Salir' %}</a>
+                            {% else %}
+                            <a href="{% url 'login' %}"
+                                class="hover:bg-bright_red rounded-2xl py-2 px-6">{%
+                                trans 'Acceder' %}</a>
+                            {% endif %}
+                        </li>
                     </ul>
                 </nav>
 
@@ -47,22 +64,34 @@
                     class="hidden lg:flex lg:flex-row lg:items-center lg:justify-end">
                     <ul class="lg:flex lg:space-x-12">
                         <li><a href="{% url 'home' %}"
-                                class="text-lg hover:underline">Inicio</a></li>
+                                class="text-lg hover:underline">{% trans
+                                'Inicio' %}</a></li>
                         <li><a href="{% url 'add_glucose_reading' %}"
-                                class="text-lg hover:underline">Añadir</a></li>
+                                class="text-lg hover:underline">{% trans
+                                'Añadir' %}</a></li>
                         <li><a href="{% url 'glucose_readings' %}"
-                                class="text-lg hover:underline">Lecturas</a></li>
+                                class="text-lg hover:underline">{% trans
+                                'Lecturas' %}</a></li>
                         <li><a href="{% url 'glucose_chart' %}"
-                                class="text-lg hover:underline">Gráficas</a></li>
+                                class="text-lg hover:underline">{% trans
+                                'Gráficas' %}</a></li>
                         <li>
                             {% if user.is_authenticated %}
                             <a href="{% url 'logout' %}"
-                                class="hover:bg-bright_red rounded-2xl py-2 px-6">Salir</a>
+                                class="hover:bg-bright_red rounded-2xl py-2 px-6">{%
+                                trans 'Salir' %}</a>
                             {% else %}
                             <a href="{% url 'login' %}"
-                                class="hover:bg-bright_red rounded-2xl py-2 px-6">Acceder</a>
+                                class="hover:bg-bright_red rounded-2xl py-2 px-6">{%
+                                trans 'Acceder' %}</a>
                             {% endif %}
                         </li>
+                    </ul>
+                    <ul>
+                        <li><a
+                                href="{% url 'change_language' 'en' %}">English</a></li>
+                        <li><a
+                                href="{% url 'change_language' 'es' %}">Español</a></li>
                     </ul>
                 </nav>
             </div>
@@ -76,20 +105,22 @@
             <div
                 class="flex justify-between items-center bg-light_salmon rounded-2xl border-2 border-custom_black px-5 py-5">
                 <h2 class="text-custom_black">Javier Cordero</h2>
-                <h2 class="text-custom_black ml-auto">Gluco Control App</h2>
+                <h2 class="text-custom_black ml-auto">{% trans
+                    'Gluco Control App' %}</h2>
             </div>
         </footer>
 
         <!-- Script para manejar la apertura y cierre del menú hamburguesa -->
         <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const burgerMenu = document.getElementById('burger-menu');
-            const navbar = document.getElementById('navbar');
+document.addEventListener('DOMContentLoaded', function () {
+    const burgerMenu = document.getElementById('burger-menu');
+    const navbar = document.getElementById('navbar');
 
-            burgerMenu.addEventListener('click', function () {
-                navbar.classList.toggle('hidden');
-            });
-        });
-    </script>
+    burgerMenu.addEventListener('click', function () {
+        navbar.classList.toggle('hidden');
+    });
+});
+</script>
+
     </body>
 </html>

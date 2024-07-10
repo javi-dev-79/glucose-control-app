@@ -1,6 +1,7 @@
 # glucoapp/views.py
 
 from django.contrib.auth.decorators import login_required
+from django.utils.translation import activate
 from django.shortcuts import render, redirect
 from .models import GlucoseReading
 from .forms import GlucoseReadingForm
@@ -60,3 +61,12 @@ def glucose_chart(request):
     fig = px.line(df, x='date', y='level', title='Glucose Levels Over Time')
     chart = fig.to_html(full_html=False)
     return render(request, 'glucose_chart.html', {'chart': chart})
+
+def change_language(request, language_code):
+    # Activa el idioma basado en el parámetro language_code
+    activate(language_code)
+    
+    # Almacena la preferencia de idioma del usuario en una cookie
+    response = redirect(request.META.get('HTTP_REFERER'))
+    response.set_cookie('django_language', language_code)
+    return response

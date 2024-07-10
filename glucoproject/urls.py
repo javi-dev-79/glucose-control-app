@@ -1,3 +1,5 @@
+# glucoproject/urls.py
+
 """
 URL configuration for glucoproject project.
 
@@ -15,11 +17,24 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
+from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
+from glucoapp import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('glucoapp.urls')),
+    # path('', include('glucoapp.urls')),
     path("__reload__/", include("django_browser_reload.urls")),
 ]
+
+
+urlpatterns += i18n_patterns(
+    path('', include('glucoapp.urls')),
+    path('change-language/<str:language_code>/', views.change_language, name='change_language'),
+)
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
