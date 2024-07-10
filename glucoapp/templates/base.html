@@ -1,59 +1,80 @@
+<!-- templates/base.html -->
+
 {% load static tailwind_tags %}
+{% load crispy_forms_tags %}
 <!DOCTYPE html>
-<html lang="es" class="bg-lightgreen font-spline inset-0 mx-5">
-<head>
-    <meta charset="UTF-8">
-    <title>{% block title %}Mi Sitio Web{% endblock %}</title>
-    {% tailwind_css %}
-</head>
-<body class="bg-lightgreen font-spline m-0 p-0 flex flex-col min-h-screen mt-5">
+<html lang="es" class="bg-light_red font-spline inset-0 mx-5">
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Mi Sitio Web{% endblock %}</title>
+        {% tailwind_css %}
+    </head>
+    <body
+        class="bg-light_red font-spline m-0 p-0 flex flex-col min-h-screen mt-5">
 
-    <header class="text-darkgreen mb-5">
-        <div class="flex justify-between items-center bg-mediumgreen rounded-3xl border-2 border-darkgreen py-3 px-5">
-            <h1 class="text-2xl font-bold py-3">Gluco Control App</h1>
+        <header class="text-custom_black mb-5">
+            <div
+                class="flex justify-between items-center bg-light_salmon rounded-3xl border-2 border-custom_black py-3 px-5">
+                <h1 class="text-2xl font-bold py-3">Gluco Control App</h1>
 
-            <!-- Botón de hamburguesa para pantallas pequeñas y medianas -->
-            <div class="block lg:hidden">
-                <button id="burger-menu" class="text-2xl text-darkgreen focus:outline-none rounded-lg p-1">
-                    &#9776;
-                </button>
+                <!-- Botón de hamburguesa para pantallas pequeñas y medianas -->
+                <div class="block lg:hidden">
+                    <button id="burger-menu"
+                        class="text-2xl text-custom_black focus:outline-none rounded-lg p-1">
+                        &#9776;
+                    </button>
+                </div>
+
+                <!-- Menú desplegable para pantallas pequeñas y medianas -->
+                <nav id="navbar"
+                    class="hidden lg:hidden absolute right-0 top-0 mt-16 bg-light_salmon rounded-3xl border-2 border-custom_black p-3">
+                    <ul class="flex flex-col space-y-2">
+                        <li><a href="{% url 'home' %}"
+                                class="text-lg hover:underline">Inicio</a></li>
+                        <li><a href="{% url 'add_glucose_reading' %}"
+                                class="text-lg hover:underline">Añadir</a></li>
+                        <li><a href="{% url 'glucose_readings' %}"
+                                class="text-lg hover:underline">Lecturas</a></li>
+                        <li><a href="{% url 'glucose_chart' %}"
+                                    class="text-lg hover:underline">Gráficas</a></li>
+                        <li><a href="{% url 'login' %}"
+                                class="hover:bg-bright_red rounded-2xl py-2 px-6">Acceder</a></li>
+                    </ul>
+                </nav>
+
+                <!-- Enlaces del navbar para pantallas grandes -->
+                <nav id="navbar-large"
+                    class="hidden lg:flex lg:flex-row lg:items-center lg:justify-end">
+                    <ul class="lg:flex lg:space-x-12">
+                        <li><a href="{% url 'home' %}"
+                                class="text-lg hover:underline">Inicio</a></li>
+                        <li><a href="{% url 'add_glucose_reading' %}"
+                                class="text-lg hover:underline">Añadir</a></li>
+                        <li><a href="{% url 'glucose_readings' %}"
+                                class="text-lg hover:underline">Lecturas</a></li>
+                        <li><a href="{% url 'glucose_chart' %}"
+                                    class="text-lg hover:underline">Gráficas</a></li>
+                        <li><a href="{% url 'login' %}"
+                                class="hover:bg-bright_red rounded-2xl py-2 px-6">Acceder</a></li>
+                    </ul>
+                </nav>
             </div>
+        </header>
 
-            <!-- Menú desplegable para pantallas pequeñas y medianas -->
-            <nav id="navbar" class="hidden lg:hidden absolute right-0 top-0 mt-16 bg-mediumgreen rounded-3xl border-2 border-darkgreen p-3">
-                <ul class="flex flex-col space-y-2">
-                    <li><a href="{% url 'uno' %}" class="text-lg hover:underline hover:text-2xl">Uno</a></li>
-                    <li><a href="{% url 'dos' %}" class="text-lg hover:underline hover:text-2xl">Dos</a></li>
-                    <li><a href="{% url 'tres' %}" class="text-lg hover:underline hover:text-2xl">Tres</a></li>
-                    <li><a href="" class="hover:bg-brightgreen hover:text-2xl rounded-2xl py-2 px-6">Sign In</a></li>
-                </ul>
-            </nav>
+        <main class="flex-1">
+            {% block content %}{% endblock %}
+        </main>
 
-            <!-- Enlaces del navbar para pantallas grandes -->
-            <nav id="navbar-large" class="hidden lg:flex lg:flex-row lg:items-center lg:justify-end">
-                <ul class="lg:flex lg:space-x-12">
-                    <li><a href="{% url 'uno' %}" class="text-lg hover:underline hover:text-3xl">Uno</a></li>
-                    <li><a href="{% url 'dos' %}" class="text-lg hover:underline hover:text-3xl">Dos</a></li>
-                    <li><a href="{% url 'tres' %}" class="text-lg hover:underline hover:text-3xl">Tres</a></li>
-                    <li><a href="" class="hover:bg-brightgreen hover:text-2xl rounded-2xl py-2 px-6">Sign In</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+        <footer class="mb-5">
+            <div
+                class="flex justify-between items-center bg-light_salmon rounded-2xl border-2 border-custom_black px-5 py-5">
+                <h2 class="text-custom_black">Javier Cordero</h2>
+                <h2 class="text-custom_black ml-auto">Gluco Control App</h2>
+            </div>
+        </footer>
 
-    <main class="flex-1">
-        {% block content %}{% endblock %}
-    </main>
-
-    <footer class="mb-5">
-        <div class="flex justify-between items-center bg-mediumgreen rounded-2xl border-2 border-darkgreen px-5 py-5">
-                <h2 class="text-darkgreen">Javier Cordero</h2>
-                <h2 class="text-darkgreen ml-auto">Gluco Control App</h2>
-        </div>
-    </footer>
-
-    <!-- Script para manejar la apertura y cierre del menú hamburguesa -->
-    <script>
+        <!-- Script para manejar la apertura y cierre del menú hamburguesa -->
+        <script>
         document.addEventListener('DOMContentLoaded', function () {
             const burgerMenu = document.getElementById('burger-menu');
             const navbar = document.getElementById('navbar');
@@ -63,5 +84,5 @@
             });
         });
     </script>
-</body>
+    </body>
 </html>

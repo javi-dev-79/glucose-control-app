@@ -25,6 +25,10 @@ SECRET_KEY = "django-insecure-n50jeg0rag(_7qa_1#ma0ld1ksua4cy^g2s4+elelwt(vdube7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+LOGIN_URL = 'login'
+
+LOGIN_REDIRECT_URL = 'home'
+
 ALLOWED_HOSTS = []
 
 INTERNAL_IPS = [
@@ -43,6 +47,8 @@ INSTALLED_APPS = [
     "glucoapp",
     "tailwind",
     "django_browser_reload",
+    "crispy_forms",
+    "crispy_bootstrap4",
 ]
 
 MIDDLEWARE = [
@@ -123,10 +129,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 # Set the URL for serving static files
-STATIC_URL = 'static/'
+STATIC_URL = "static/"
 
 # Define the directory where collectstatic will put static files for deployment.
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 
 # Default primary key field type
@@ -135,3 +141,5 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 TAILWIND_APP_NAME = "glucoapp"
+
+CRISPY_TEMPLATE_PACK = "bootstrap4"

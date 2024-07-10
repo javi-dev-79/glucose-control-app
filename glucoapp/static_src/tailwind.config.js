@@ -44,15 +44,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // darkgreen: "#194410",
-        // mediumgreen: "#F8FAF7",
-        // lightgreen: "#e6f3c9",
-        // brightgreen: "#AEFF00",
-        // me gusta
-        darkgreen: "#090809",
-        mediumgreen: "#DECCCC",
-        lightgreen: "#F44E3F",
-        brightgreen: "#FE5F55",
+        custom_black: "#090809",
+        light_salmon: "#DECCCC",
+        light_red: "#F44E3F",
+        bright_red: "#FE5F55",
+        petroleum: "#2F4858",
       },
       fontFamily: {
         spline: ["spline", "sans-serif"],

@@ -1,0 +1,27 @@
+<!-- templates/login.html -->
+
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="flex justify-center items-center h-screen">
+    <form method="post" class="{{ form.helper.form_class }}">
+        {% csrf_token %}
+        <h1 class="text-3xl text-slate-800 pb-8">Acceso</h1>
+
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == 'error' %}
+                <div class="text-red-800 text-3xl pb-8" role="alert">
+                    {{ message }}
+                </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+
+        {% crispy form %}
+    </form>
+</div>
+{% endblock %}
