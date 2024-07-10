@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from .models import GlucoseReading
 from .forms import GlucoseReadingForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from .forms import LoginForm
 import plotly.express as px
 import pandas as pd
@@ -18,11 +18,15 @@ def login_view(request):
             password = form.cleaned_data.get('password')
             user = authenticate(request, username=username, password=password)
             if user is not None:
-                login(request, user)
+                auth_login(request, user)
                 return redirect('home')
             else:
                 form.add_error(None, 'Invalid username or password')
-    return render(request, 'login.html', {'form': form}) 
+    return render(request, 'login.html', {'form': form})
+
+def logout_view(request):
+    auth_logout(request)
+    return redirect("/login")
 
 @login_required
 def home(request):
