@@ -1,0 +1,9 @@
+<!-- glucoapp/templates/glucose_chart.html -->
+
+{% extends 'base.html' %}
+{% block content %}
+<h2>Glucose Levels Over Time</h2>
+<div>
+    {{ chart|safe }}
+</div>
+{% endblock %}
