@@ -33,7 +33,10 @@ def login_view(request):
 
 def logout_view(request):
     auth_logout(request)
-    return redirect("/login")
+    # Determine the current language code
+    language_code = get_language()  # This gets the current language code
+    # Redirect to the home page of the current language
+    return redirect(f"/{language_code}/login/")  # Adjust this according to your URL structure
 
 
 @login_required
