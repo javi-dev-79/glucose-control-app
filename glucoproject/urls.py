@@ -56,13 +56,14 @@ from glucoapp import views
 from django.utils.translation import gettext_lazy as _
 
 urlpatterns = [
-    path("i18n/", include("django.conf.urls.i18n")),
+    path('admin/', admin.site.urls),
+    path('i18n/', include('django.conf.urls.i18n')),
     path("__reload__/", include("django_browser_reload.urls")),
 ]
 
 # Añadir rutas traducibles
 urlpatterns += i18n_patterns(
-    path(_('admin/'), admin.site.urls, name='admin'),
+    # path(_('admin/'), admin.site.urls, name='admin'),
     path("", include("glucoapp.urls")),
 )
 

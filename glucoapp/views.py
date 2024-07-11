@@ -11,82 +11,87 @@ from django.contrib.auth import authenticate, login as auth_login, logout as aut
 from .forms import LoginForm
 import plotly.express as px
 import pandas as pd
+import logging
+
+logger = logging.getLogger(__name__)
 
 def login_view(request):
     form = LoginForm()
-    if request.method == 'POST':
+    if request.method == "POST":
         form = LoginForm(request.POST)
         if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
+            username = form.cleaned_data.get("username")
+            password = form.cleaned_data.get("password")
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 auth_login(request, user)
-                return redirect('home')
+                return redirect("home")
             else:
-                form.add_error(None, 'Invalid username or password')
-    return render(request, 'login.html', {'form': form})
+                form.add_error(None, "Invalid username or password")
+    return render(request, "login.html", {"form": form})
+
 
 def logout_view(request):
     auth_logout(request)
     return redirect("/login")
 
+
 @login_required
 def home(request):
-    contexto = {
-        'mensaje': 'Welcome to Glucose Tracker'
+    context = {
+        'mensaje': 'Welcome to Glucose Tracker',
+        'language_code': get_language(),
+        # Otros contextos necesarios
     }
-    return render(request, 'home.html', contexto)
+    return render(request, 'home.html', context)
 
 @login_required
 def add_glucose_reading(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = GlucoseReadingForm(request.POST)
         if form.is_valid():
             reading = form.save(commit=False)
             reading.patient = request.user
             reading.save()
-            return redirect('glucose_readings')
+            return redirect("glucose_readings")
     else:
         form = GlucoseReadingForm()
-    return render(request, 'add_glucose_reading.html', {'form': form})
+    return render(request, "add_glucose_reading.html", {"form": form})
+
 
 @login_required
 def glucose_readings(request):
     readings = GlucoseReading.objects.filter(patient=request.user)
-    return render(request, 'glucose_readings.html', {'readings': readings})
+    return render(request, "glucose_readings.html", {"readings": readings})
+
 
 @login_required
 def glucose_chart(request):
     readings = GlucoseReading.objects.filter(patient=request.user)
-    df = pd.DataFrame(list(readings.values('date', 'level')))
-    fig = px.line(df, x='date', y='level', title='Glucose Levels Over Time')
+    df = pd.DataFrame(list(readings.values("date", "level")))
+    fig = px.line(df, x="date", y="level", title="Glucose Levels Over Time")
     chart = fig.to_html(full_html=False)
-    return render(request, 'glucose_chart.html', {'chart': chart})
+    return render(request, "glucose_chart.html", {"chart": chart})
 
-# def change_language(request, language_code):
-#     # Activa el idioma basado en el parámetro language_code
-#     activate(language_code)
-    
-#     # Almacena la preferencia de idioma del usuario en una cookie
-#     response = redirect(request.META.get('HTTP_REFERER', '/'))
-#     response.set_cookie('django_language', language_code)
-#     return response
 
 def change_language(request, language_code):
-    next_page = request.META.get('HTTP_REFERER', '/')
+    next_page = request.META.get("HTTP_REFERER", "/")
     response = redirect(next_page)
     if language_code in [lang[0] for lang in settings.LANGUAGES]:
+        logger.debug(f"Activating language: {language_code}")
         translation.activate(language_code)
         request.session[translation.LANGUAGE_SESSION_KEY] = language_code
         request.session.modified = True
+        logger.debug(f"Language activated: {translation.get_language()}")
+    else:
+        logger.warning(f"Invalid language code: {language_code}")
+    logger.debug(f"Redirecting to: {next_page}")
     return response
 
+
 def set_language(request):
-    if request.method == 'GET' and 'language' in request.GET:
-        language = request.GET['language']
-        if language in [lang_code for lang_code, _ in settings.LANGUAGES]:
-            activate(language)
-            request.session[translation.LANGUAGE_SESSION_KEY] = language
-    # Redirige al usuario a la página de origen
-    return redirect(request.META.get('HTTP_REFERER', '/'))
+    language = request.POST.get("language")
+    next_url = request.POST.get("next", "/")
+    if language:
+        activate(language)
+    return redirect(next_url)

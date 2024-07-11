@@ -3,9 +3,10 @@
 {% load static %}
 {% load tailwind_tags %}
 {% load crispy_forms_tags %}
-{% load i18n %}
+{% load i18n %}  <!-- Asegúrate de cargar la etiqueta i18n -->
 
 <!DOCTYPE html>
+{% get_current_language as LANGUAGE_CODE %}
 <html lang="{{ LANGUAGE_CODE }}" class="bg-light_red font-spline inset-0 mx-5">
 
 <head>
@@ -33,11 +34,9 @@
                     <div class="border border-custom_black origin-top-right absolute right-0 mt-2 w-56 rounded-lg shadow-lg bg-light_salmon ring-1 ring-black ring-opacity-5 focus:outline-none hidden"
                         id="language-menu-sm" role="menu" aria-orientation="vertical" aria-labelledby="language-button-sm" tabindex="-1">
                         <div class="py-1" role="none">
-                            <a href="{% url 'set_language' %}?language=en"
-                                class="text-custom_black block px-4 py-2 text-sm hover:underline" role="menuitem" tabindex="-1"
+                            <a href="#" data-language-code="en" class="text-custom_black block px-4 py-2 text-sm hover:underline language-link" role="menuitem" tabindex="-1"
                                 id="menu-item-0-sm">English</a>
-                            <a href="{% url 'set_language' %}?language=es"
-                                class="text-custom_black block px-4 py-2 text-sm hover:underline" role="menuitem" tabindex="-1"
+                            <a href="#" data-language-code="es" class="text-custom_black block px-4 py-2 text-sm hover:underline language-link" role="menuitem" tabindex="-1"
                                 id="menu-item-1-sm">Español</a>
                         </div>
                     </div>
@@ -98,12 +97,8 @@
                                 <div class="border border-custom_black origin-top-right absolute right-0 mt-2 w-56 rounded-lg shadow-lg bg-light_salmon ring-1 ring-black ring-opacity-5 focus:outline-none hidden"
                                     id="language-menu" role="menu" aria-orientation="vertical" aria-labelledby="language-button" tabindex="-1">
                                     <div class="py-1" role="none">
-                                        <a href="{% url 'set_language' %}?language=en"
-                                            class="text-custom_black block px-4 py-2 text-sm hover:underline" role="menuitem" tabindex="-1"
-                                            id="menu-item-0">English</a>
-                                        <a href="{% url 'set_language' %}?language=es"
-                                            class="text-custom_black block px-4 py-2 text-sm hover:underline" role="menuitem" tabindex="-1"
-                                            id="menu-item-1">Español</a>
+                                        <a href="#" data-language-code="en" class="text-custom_black block px-4 py-2 text-sm hover:underline language-link" role="menuitem" tabindex="-1" id="menu-item-0">English</a>
+                                        <a href="#" data-language-code="es" class="text-custom_black block px-4 py-2 text-sm hover:underline language-link" role="menuitem" tabindex="-1" id="menu-item-1">Español</a>
                                     </div>
                                 </div>
                             </div>
@@ -116,74 +111,107 @@
 
     <main class="flex-1">
         {% block content %}{% endblock %}
+
+        <form action="{% url 'set_language' %}" method="post" id="language-form">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ request.path }}">
+            <input type="hidden" name="language" id="language-input">
+        </form>
+        
     </main>
 
     <footer class="mb-5">
         <div class="flex justify-between items-center bg-light_salmon rounded-lg border-2 border-custom_black px-5 py-5">
-            <h2 class="text-custom_black">Javier Cordero</h2>
+            <h2 class="text-custom_black">{% trans 'Javier Cordero' %}</h2>
             <h2 class="text-custom_black ml-auto">{% trans 'Gluco Control App' %}</h2>
         </div>
     </footer>
 
-    <!-- Scripts -->
+    <!-- Resto del código HTML y JavaScript aquí -->
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const burgerMenu = document.getElementById('burger-menu');
-            const navbar = document.getElementById('navbar');
-            const languageButton = document.getElementById('language-button');
-            const languageMenu = document.getElementById('language-menu');
-            const languageButtonSm = document.getElementById('language-button-sm');
-            const languageMenuSm = document.getElementById('language-menu-sm');
+        document.addEventListener("DOMContentLoaded", function() {
+            // Listener para el botón de hamburguesa en pantallas pequeñas y medianas
+            const burgerMenuButton = document.getElementById("burger-menu");
+            const navbarMenu = document.getElementById("navbar");
+            const languageButton = document.getElementById("language-button");
+            const languageMenu = document.getElementById("language-menu");
+            const languageButtonSm = document.getElementById("language-button-sm");
+            const languageMenuSm = document.getElementById("language-menu-sm");
 
-            burgerMenu.addEventListener('click', function (event) {
-                event.stopPropagation();
-                navbar.classList.toggle('hidden');
-                languageMenu.classList.add('hidden');
-                languageMenuSm.classList.add('hidden');
-            });
-
-            languageButton.addEventListener('click', function (event) {
-                event.stopPropagation();
-                languageMenu.classList.toggle('hidden');
-                navbar.classList.add('hidden');
-            });
-
-            languageButtonSm.addEventListener('click', function (event) {
-                event.stopPropagation();
-                languageMenuSm.classList.toggle('hidden');
-                navbar.classList.add('hidden');
-            });
-
-            document.addEventListener('click', function () {
-                navbar.classList.add('hidden');
-                languageMenu.classList.add('hidden');
-                languageMenuSm.classList.add('hidden');
-            });
-
-            document.querySelectorAll('#navbar a').forEach(function (link) {
-                link.addEventListener('click', function () {
-                    navbar.classList.add('hidden');
+            if (burgerMenuButton && navbarMenu) {
+                burgerMenuButton.addEventListener("click", function() {
+                    navbarMenu.classList.toggle("hidden"); // Toggle para mostrar/ocultar el menú principal
+                    languageMenu.classList.add("hidden"); // Asegura que el menú de idiomas esté oculto al abrir el menú principal
+                    languageMenuSm.classList.add("hidden"); // Asegura que el menú de idiomas esté oculto al abrir el menú principal en pantallas pequeñas y medianas
                 });
-            });
+            }
 
-            document.querySelectorAll('#language-menu-sm a').forEach(function (link) {
-                link.addEventListener('click', function () {
-                    languageMenuSm.classList.add('hidden');
+            // Listener para el botón de idioma en pantallas grandes
+            if (languageButton && languageMenu) {
+                languageButton.addEventListener("click", function() {
+                    languageMenu.classList.toggle("hidden"); // Toggle para mostrar/ocultar el menú de idiomas
+                    navbarMenu.classList.add("hidden"); // Asegura que el menú principal esté oculto al abrir el menú de idiomas
+                    languageMenuSm.classList.add("hidden"); // Asegura que el menú de idiomas esté oculto al abrir el menú de idiomas en pantallas pequeñas y medianas
                 });
-            });
 
-            document.addEventListener('click', function (event) {
-                const target = event.target;
-                if (!languageMenu.contains(target) && !languageButton.contains(target)) {
-                    languageMenu.classList.add('hidden');
-                }
-                if (!languageMenuSm.contains(target) && !languageButtonSm.contains(target)) {
-                    languageMenuSm.classList.add('hidden');
-                }
-            });
+                // Escuchar clics en los enlaces de idioma en pantallas grandes
+                const languageLinks = document.querySelectorAll("#language-menu .language-link");
+                languageLinks.forEach(function(link) {
+                    link.addEventListener("click", function(event) {
+                        event.preventDefault();
+                        const languageCode = this.getAttribute("data-language-code");
+                        document.getElementById("language-input").value = languageCode;
+                        document.getElementById("language-form").submit();
+                    });
+                });
+            }
+
+            // Listener para el botón de idioma en pantallas pequeñas y medianas
+            if (languageButtonSm && languageMenuSm) {
+                languageButtonSm.addEventListener("click", function() {
+                    languageMenuSm.classList.toggle("hidden"); // Toggle para mostrar/ocultar el menú de idiomas
+                    navbarMenu.classList.add("hidden"); // Asegura que el menú principal esté oculto al abrir el menú de idiomas en pantallas pequeñas y medianas
+                    languageMenu.classList.add("hidden"); // Asegura que el menú de idiomas esté oculto al abrir el menú de idiomas en pantallas grandes
+                });
+
+                // Escuchar clics en los enlaces de idioma en pantallas pequeñas y medianas
+                const languageLinksSm = document.querySelectorAll("#language-menu-sm .language-link");
+                languageLinksSm.forEach(function(link) {
+                    link.addEventListener("click", function(event) {
+                        event.preventDefault();
+                        const languageCode = this.getAttribute("data-language-code");
+                        document.getElementById("language-input").value = languageCode;
+                        document.getElementById("language-form").submit();
+                    });
+                });
+            }
+
+            // Función para cerrar el menú desplegable de idiomas si se hace clic fuera de él
+            function closeLanguageMenuOnClickOutside() {
+                const languageMenu = document.getElementById("language-menu");
+                const languageButton = document.getElementById("language-button");
+                const languageMenuSm = document.getElementById("language-menu-sm");
+                const languageButtonSm = document.getElementById("language-button-sm");
+                const burgerMenuButton = document.getElementById("burger-menu");
+
+                document.addEventListener("click", function(event) {
+                    const isClickInsideLanguageMenu = languageMenu.contains(event.target) || languageButton.contains(event.target);
+                    const isClickInsideLanguageMenuSm = languageMenuSm.contains(event.target) || languageButtonSm.contains(event.target);
+                    const isClickInsideBurgerMenu = burgerMenuButton.contains(event.target);
+
+                    if (!isClickInsideLanguageMenu && !isClickInsideLanguageMenuSm && !isClickInsideBurgerMenu) {
+                        languageMenu.classList.add("hidden");
+                        languageMenuSm.classList.add("hidden");
+                        navbarMenu.classList.add("hidden");
+                    }
+                });
+            }
+
+            // Llama a la función para cerrar el menú de idiomas cuando se hace clic fuera de él
+            closeLanguageMenuOnClickOutside();
+
         });
     </script>
-
 </body>
 
 </html>

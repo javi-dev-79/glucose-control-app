@@ -12,11 +12,10 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
-from django.utils.translation import gettext_lazy as _
+# from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -98,9 +97,9 @@ WSGI_APPLICATION = "glucoproject.wsgi.application"
 # }
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
     }
 }
 
@@ -127,26 +126,26 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = "es"
+LANGUAGE_CODE = "es-es"
+# LANGUAGE_CODE = 'en-us'
 
-LANGUAGES = [
-    ("en", _("English")),
-    ("es", _("Spanish")),
-]
-
-MODELTRANSLATION_LANGUAGES = ("es", "en")
-
-MODELTRANSLATION_DEFAULT_LANGUAGE = "es"
+gettext = lambda s: s
+LANGUAGES = (
+    ("en", gettext("English")),
+    ("es", gettext("Spanish")),
+)
 
 LOCALE_PATHS = [
     os.path.join(BASE_DIR, "locale"),
 ]
 
 
-TIME_ZONE = "UTC"
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
+
 USE_L10N = True
+
 USE_TZ = True
 
 
@@ -156,16 +155,11 @@ USE_TZ = True
 # Set the URL for serving static files
 STATIC_URL = "/static/"
 
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, 'glucoapp/static'),
-# ]
-
 STATICFILES_DIRS = [
     BASE_DIR / "glucoapp" / "static",
 ]
 
 # Define the directory where collectstatic will put static files for deployment.
-# STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
 
@@ -177,3 +171,41 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 TAILWIND_APP_NAME = "glucoapp"
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
+
+# LOGGING = {
+#     "version": 1,
+#     "disable_existing_loggers": False,
+#     "handlers": {
+#         "console": {
+#             "level": "DEBUG",
+#             "class": "logging.StreamHandler",
+#         },
+#     },
+#     "loggers": {
+#         "django": {
+#             "handlers": ["console"],
+#             "level": "DEBUG",
+#             "propagate": True,
+#         },
+#     },
+# }
+
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "level": "ERROR",  # Cambiamos el nivel de DEBUG a ERROR
+            "class": "logging.StreamHandler",
+        },
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["console"],
+            "level": "ERROR",  # Cambiamos el nivel de DEBUG a ERROR
+            "propagate": True,
+        },
+    },
+}
+

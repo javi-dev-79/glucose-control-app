@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+<!-- {% extends 'base.html' %}
 
 {% block title %}Página de Inicio{% endblock %}
 
@@ -8,4 +8,35 @@
         <p class="text-lg text-gray-800"> Contenido específico de la página de
             inicio </p>
     </div>
-{% endblock %}
+{% endblock %} -->
+
+
+<div class="border border-custom_black origin-top-right absolute right-0 mt-2 w-56 rounded-lg shadow-lg bg-light_salmon ring-1 ring-black ring-opacity-5 focus:outline-none hidden"
+        id="language-menu-sm" role="menu" aria-orientation="vertical" aria-labelledby="language-button-sm" tabindex="-1">
+        <div class="py-1" role="none">
+            {% get_available_languages as LANGUAGES %}
+            {% for lang_code, lang_name in LANGUAGES %}
+                <a href="{% url 'set_language' %}?language=en"
+                    class="text-custom_black block px-4 py-2 text-sm hover:underline" role="menuitem" tabindex="-1"
+                    id="menu-item-0-sm"
+                    value="{{ lang_code }}" {% if lang_code == LANGUAGE_CODE %}selected{% endif %}>{{ lang_name }}</a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<form action="{% url 'set_language' %}" method="get" id="language-menu-sm" class="border border-custom_black origin-top-right absolute right-0 mt-2 w-56 rounded-lg shadow-lg bg-light_salmon ring-1 ring-black ring-opacity-5 focus:outline-none hidden"
+    role="menu" aria-orientation="vertical" aria-labelledby="language-button-sm" tabindex="-1">
+    <div class="py-1" role="none">
+        <select name="language" onchange="this.form.submit()" class="text-custom_black block px-4 py-2 text-sm hover:underline">
+            {% get_available_languages as LANGUAGES %}
+            {% for lang_code, lang_name in LANGUAGES %}
+                <option value="{{ lang_code }}" {% if lang_code == LANGUAGE_CODE %}selected{% endif %}>{{ lang_name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+</form>
