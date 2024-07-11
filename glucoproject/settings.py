@@ -16,7 +16,7 @@ from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -90,10 +90,17 @@ WSGI_APPLICATION = "glucoproject.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
+
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -120,19 +127,19 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
+LANGUAGE_CODE = "es"
+
 LANGUAGES = [
-    ('en', _('English')),
-    ('es', _('Spanish')),
+    ("en", _("English")),
+    ("es", _("Spanish")),
 ]
 
 MODELTRANSLATION_LANGUAGES = ("es", "en")
 
 MODELTRANSLATION_DEFAULT_LANGUAGE = "es"
 
-LANGUAGE_CODE = "es-es"
-
 LOCALE_PATHS = [
-    os.path.join(BASE_DIR, 'locale'),
+    os.path.join(BASE_DIR, "locale"),
 ]
 
 
@@ -149,13 +156,17 @@ USE_TZ = True
 # Set the URL for serving static files
 STATIC_URL = "/static/"
 
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'glucoapp/static'),
+# ]
+
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "glucoapp/static_src/src"),
+    BASE_DIR / "glucoapp" / "static",
 ]
 
 # Define the directory where collectstatic will put static files for deployment.
-# STATIC_ROOT = BASE_DIR / "staticfiles"
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+# STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 
 # Default primary key field type

@@ -38,7 +38,7 @@ class LoginForm(forms.Form):
             ),
         )
         self.helper.form_class = (
-            "bg-light_salmon p-8 rounded-lg shadow lg:w-1/2 xl:w-2/5 w-full"
+            "bg-light_salmon p-8 rounded-sm shadow lg:w-1/2 xl:w-2/5 w-full"
         )
         self.helper.label_class = "block text-2xl text-slate-800 pb-2"
 

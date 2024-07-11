@@ -1,8 +1,10 @@
 # glucoapp/views.py
 
 from django.contrib.auth.decorators import login_required
-from django.utils.translation import activate
+from django.utils.translation import activate, get_language
 from django.shortcuts import render, redirect
+from django.utils import translation
+from django.conf import settings
 from .models import GlucoseReading
 from .forms import GlucoseReadingForm
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
@@ -62,11 +64,29 @@ def glucose_chart(request):
     chart = fig.to_html(full_html=False)
     return render(request, 'glucose_chart.html', {'chart': chart})
 
-def change_language(request, language_code):
-    # Activa el idioma basado en el parámetro language_code
-    activate(language_code)
+# def change_language(request, language_code):
+#     # Activa el idioma basado en el parámetro language_code
+#     activate(language_code)
     
-    # Almacena la preferencia de idioma del usuario en una cookie
-    response = redirect(request.META.get('HTTP_REFERER'))
-    response.set_cookie('django_language', language_code)
+#     # Almacena la preferencia de idioma del usuario en una cookie
+#     response = redirect(request.META.get('HTTP_REFERER', '/'))
+#     response.set_cookie('django_language', language_code)
+#     return response
+
+def change_language(request, language_code):
+    next_page = request.META.get('HTTP_REFERER', '/')
+    response = redirect(next_page)
+    if language_code in [lang[0] for lang in settings.LANGUAGES]:
+        translation.activate(language_code)
+        request.session[translation.LANGUAGE_SESSION_KEY] = language_code
+        request.session.modified = True
     return response
+
+def set_language(request):
+    if request.method == 'GET' and 'language' in request.GET:
+        language = request.GET['language']
+        if language in [lang_code for lang_code, _ in settings.LANGUAGES]:
+            activate(language)
+            request.session[translation.LANGUAGE_SESSION_KEY] = language
+    # Redirige al usuario a la página de origen
+    return redirect(request.META.get('HTTP_REFERER', '/'))
