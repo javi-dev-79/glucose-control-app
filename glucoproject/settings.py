@@ -135,9 +135,13 @@ LANGUAGES = (
     ("es", gettext("Spanish")),
 )
 
-LOCALE_PATHS = [
-    os.path.join(BASE_DIR, "locale"),
-]
+# LOCALE_PATHS = [
+#     os.path.join(BASE_DIR, "locale"),
+# ]
+
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'glucoapp', 'locale'),
+)
 
 
 TIME_ZONE = 'UTC'

@@ -57,3 +57,18 @@ msgstr "Spanish"
 #: glucoproject/settings.py:125
 msgid "Inglés"
 msgstr "English"
+
+msgid "Acceso"
+msgstr "Log In"
+
+msgid "Nombre:"
+msgstr "Name:"
+
+msgid "Contraseña:"
+msgstr "Password:"
+
+msgid "Introduzca su nombre"
+msgstr "Enter your name"
+
+msgid "Introduzca su contraseña"
+msgstr "Enter your password"
