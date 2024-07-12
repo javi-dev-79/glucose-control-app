@@ -308,3 +308,5 @@ exports
 
 # Ignorar archivos generados por Python
 */__pycache__/
+
+glucoapp/migrations

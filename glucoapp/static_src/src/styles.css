@@ -3,26 +3,26 @@
 @tailwind utilities;
 
 @font-face {
-    font-family: 'spline';
-    src: url('/glucoapp/static/fonts/SplineSansMono-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-size: normal;
+  font-family: 'spline';
+  src: url('/static/fonts/SplineSansMono-Bold.ttf') format('truetype');
+  font-weight: normal;
+  font-size: normal;
 }
 
 @font-face {
-    font-family: 'spline';
-    src: url('/static/glucoapp/fonts/SplineSansMono-Bold.ttf') format('truetype');
-    font-weight: bold;
-    font-style: normal;
-  }
-  
-  @font-face {
-    font-family: 'spline';
-    src: url('/glucoapp/static/fonts/SplineSansMono-Italic.ttf') format('truetype');
-    font-weight: normal;
-    font-style: italic;
-  }
+  font-family: 'spline';
+  src: url('/static/fonts/SplineSansMono-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
 
-  .asteriskField {
-    display: none;
+@font-face {
+  font-family: 'spline';
+  src: url('/static/fonts/SplineSansMono-Italic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: italic;
+}
+
+.asteriskField {
+  display: none;
 }

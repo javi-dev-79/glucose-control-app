@@ -1,0 +1,59 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-07-10 20:21+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: glucoapp/templates/base.html:12
+msgid "Mi Sitio Web"
+msgstr "My Website"
+
+#: glucoapp/templates/base.html:19 glucoapp/templates/base.html:75
+msgid "App Control de Glucosa"
+msgstr "Gluco Control App"
+
+#: glucoapp/templates/base.html:31 glucoapp/templates/base.html:48
+msgid "Inicio"
+msgstr "Home"
+
+#: glucoapp/templates/base.html:32 glucoapp/templates/base.html:49
+msgid "Añadir"
+msgstr "Add"
+
+#: glucoapp/templates/base.html:33 glucoapp/templates/base.html:50
+msgid "Lecturas"
+msgstr "Readings"
+
+#: glucoapp/templates/base.html:34 glucoapp/templates/base.html:51
+msgid "Gráficas"
+msgstr "Graphics"
+
+#: glucoapp/templates/base.html:37 glucoapp/templates/base.html:54
+msgid "Salir"
+msgstr "Logout"
+
+#: glucoapp/templates/base.html:39 glucoapp/templates/base.html:56
+msgid "Acceder"
+msgstr "Login"
+
+#: glucoproject/settings.py:124
+msgid "Español"
+msgstr "Spanish"
+
+#: glucoproject/settings.py:125
+msgid "Inglés"
+msgstr "English"
