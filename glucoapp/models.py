@@ -11,8 +11,8 @@ class PatientProfile(models.Model):
         choices=[("mg/dL", "mg/dL"), ("mmol/L", "mmol/L")],
         default="mg/dL",
     )
-    target_range_min = models.FloatField(default=70)  # Valor en mg/dL o mmol/L
-    target_range_max = models.FloatField(default=140)  # Valor en mg/dL o mmol/L
+    target_range_min = models.FloatField(default=70)  # Value in mg/dL or mmol/L
+    target_range_max = models.FloatField(default=140)  # Value in mg/dL or mmol/L
 
     def __str__(self):
         return self.user.username
@@ -20,15 +20,25 @@ class PatientProfile(models.Model):
 
 class GlucoseReading(models.Model):
     patient = models.ForeignKey(User, on_delete=models.CASCADE)
-    date = models.DateTimeField()
+    date = models.DateTimeField(auto_now_add=False)  # Change to False to allow editing
     level = models.FloatField()
     notes = models.TextField(blank=True, null=True)
+    test_type = models.CharField(
+        max_length=100,
+        choices=[
+            ('puncture', 'Punción de dedo'),
+            ('blood', 'Análisis de sangre'),
+            # Add more test types as necessary
+        ],
+        default='punctura_dedo',  # Default value
+        null=True,  # You can leave it as null=True if you want to allow null values
+        blank=True  # So that it is not required in the form
+    )
+    location = models.CharField(max_length=50, choices=[('home', 'Casa'), ('hospital', 'Hospital')], blank=True, null=True)
+    medium_used = models.CharField(max_length=100, blank=True, null=True)  # Optional field
 
     def __str__(self):
         return f"{self.patient.username} - {self.date} - {self.level}"
-
-    class Meta:
-        ordering = ["-date"]
 
 
 class UserPreferences(models.Model):

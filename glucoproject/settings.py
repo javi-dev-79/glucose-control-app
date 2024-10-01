@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
+
 # from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -49,6 +50,7 @@ INSTALLED_APPS = [
     "tailwind",
     "django_browser_reload",
     "crispy_forms",
+    "crispy_tailwind",
     "crispy_bootstrap4",
     "modeltranslation",
 ]
@@ -139,12 +141,10 @@ LANGUAGES = (
 #     os.path.join(BASE_DIR, "locale"),
 # ]
 
-LOCALE_PATHS = (
-    os.path.join(BASE_DIR, 'glucoapp', 'locale'),
-)
+LOCALE_PATHS = (os.path.join(BASE_DIR, "glucoapp", "locale"),)
 
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = "UTC"
 
 USE_I18N = True
 
@@ -174,7 +174,11 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 TAILWIND_APP_NAME = "glucoapp"
 
-CRISPY_TEMPLATE_PACK = "bootstrap4"
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
+
+# CRISPY_TEMPLATE_PACK = "bootstrap4"
+CRISPY_TEMPLATE_PACK = "tailwind"
 
 # LOGGING = {
 #     "version": 1,
@@ -212,4 +216,3 @@ LOGGING = {
         },
     },
 }
-

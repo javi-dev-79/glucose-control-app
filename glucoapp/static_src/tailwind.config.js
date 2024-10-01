@@ -43,12 +43,19 @@ module.exports = {
   ],
   theme: {
     extend: {
+      screens: {
+        'sm': '640px',
+        'md': '768px',
+        'lg': '1024px',
+        'xl': '1280px',
+      },
       colors: {
         custom_black: "#090809",
         light_salmon: "#DECCCC",
         light_red: "#F44E3F",
         bright_red: "#FE5F55",
         petroleum: "#2F4858",
+        ocean: "#007c84",
       },
       fontFamily: {
         spline: ["spline", "sans-serif"],

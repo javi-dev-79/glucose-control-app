@@ -79,3 +79,30 @@ msgstr "Introduzca su contraseña"
 
 msgid "Acceder"
 msgstr "Acceder"
+
+msgid "Fecha"
+msgstr "Fecha"
+
+msgid "Nivel"
+msgstr "Nivel"
+
+msgid "Notas"
+msgstr "Notas"
+
+msgid "Tipo de prueba"
+msgstr "Tipo de prueba"
+
+msgid "Ubicación"
+msgstr "Ubicación"
+
+msgid "Medio utilizado"
+msgstr "Medio utilizado"
+
+msgid "Añadir Lectura"
+msgstr "Añadir Lectura"
+
+msgid "Añadir lectura de glucosa"
+msgstr "Añadir lectura de glucosa"
+
+msgid "Guardar Lectura"
+msgstr "Guardar Lectura"

@@ -4,7 +4,7 @@
 
 @font-face {
   font-family: 'spline';
-  src: url('/static/fonts/SplineSansMono-Bold.ttf') format('truetype');
+  src: url('/static/fonts/SplineSansMono-Regular.ttf') format('truetype');
   font-weight: normal;
   font-size: normal;
 }
@@ -25,4 +25,16 @@
 
 .asteriskField {
   display: none;
+}
+
+@media (max-width: 768px) {
+  .table-container {
+      overflow-x: auto;
+  }
+  table {
+      min-width: 600px; /* Ajusta este valor según sea necesario */
+  }
+  th, td {
+      white-space: nowrap;
+  }
 }

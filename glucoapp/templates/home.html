@@ -4,11 +4,19 @@
 {% block title %} Inicio {% endblock %}
 
 {% block content %}
-    <div class="bg-red-500 text-white p-4 rounded">
-        <h2>{{ mensaje }}</h2>
-        <p>Track and analyze your glucose levels easily.</p>
-        <!-- <p>Current language code: {{ language_code }}</p> -->
-    </div>
+<div>
+    <h6 class="bg-white text-black p-2 sm:bg-red-500 md:bg-blue-500">
+        Este texto debería cambiar de tamaño en pantallas grandes.
+    </h6>
+</div>
+<div class="bg-red-500 text-white p-4 rounded">
+    <h2>{{ mensaje }}</h2>
+    <p>Track and analyze your glucose levels easily.</p>
+    <!-- <p>Current language code: {{ language_code }}</p> -->
+</div>
+
+
+
 {% endblock %}
 
 <!-- {% debug %} -->

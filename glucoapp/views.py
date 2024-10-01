@@ -67,15 +67,46 @@ def glucose_readings(request):
     readings = GlucoseReading.objects.filter(patient=request.user)
     return render(request, "glucose_readings.html", {"readings": readings})
 
+# @login_required
+# def glucose_chart(request):
+#     readings = GlucoseReading.objects.filter(patient=request.user)
+#     df = pd.DataFrame(list(readings.values("date", "level")))
+#     fig = px.line(df, x="date", y="level", title="Glucose Levels Over Time")
+#     chart = fig.to_html(full_html=False)
+#     return render(request, "glucose_chart.html", {"chart": chart})
 
+# BAR CHART MODEL.
+# @login_required
+# def glucose_chart(request):
+#     readings = GlucoseReading.objects.filter(patient=request.user)
+#     df = pd.DataFrame(list(readings.values("date", "level")))
+#     # Cambiar de línea a barras
+#     fig = px.bar(df, x="date", y="level", title="Glucose Levels Over Time")
+#     chart = fig.to_html(full_html=False)
+#     return render(request, "glucose_chart.html", {"chart": chart})
+
+# SCATTER PLOT.
+# @login_required
+# def glucose_chart(request):
+#     readings = GlucoseReading.objects.filter(patient=request.user)
+#     df = pd.DataFrame(list(readings.values("date", "level")))
+#     # Cambiar a gráfico de dispersión
+#     fig = px.scatter(df, x="date", y="level", title="Glucose Levels Over Time")
+#     chart = fig.to_html(full_html=False)
+#     return render(request, "glucose_chart.html", {"chart": chart})
+
+# AREA CHART.
 @login_required
 def glucose_chart(request):
     readings = GlucoseReading.objects.filter(patient=request.user)
     df = pd.DataFrame(list(readings.values("date", "level")))
-    fig = px.line(df, x="date", y="level", title="Glucose Levels Over Time")
+    # Cambiar a gráfico de área
+    fig = px.area(df, x="date", y="level", title="Glucose Levels Over Time")
+    
+    fig.update_traces(line=dict(color="#007c84"))
+    
     chart = fig.to_html(full_html=False)
     return render(request, "glucose_chart.html", {"chart": chart})
-
 
 def change_language(request, language_code):
     next_page = request.META.get("HTTP_REFERER", "/")

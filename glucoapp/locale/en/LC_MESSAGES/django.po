@@ -72,3 +72,31 @@ msgstr "Enter your name"
 
 msgid "Introduzca su contraseña"
 msgstr "Enter your password"
+
+msgid "Fecha"
+msgstr "Date"
+
+msgid "Nivel"
+msgstr "Level"
+
+msgid "Notas"
+msgstr "Notes"
+
+msgid "Tipo de prueba"
+msgstr "Test type"
+
+msgid "Ubicación"
+msgstr "Location"
+
+msgid "Medio utilizado"
+msgstr "Medium used"
+
+msgid "Añadir Lectura"
+msgstr "Add Reading"
+
+msgid "Añadir lectura de glucosa"
+msgstr "Add glucose reading"
+
+msgid "Guardar Lectura"
+msgstr "Save Reading"
+

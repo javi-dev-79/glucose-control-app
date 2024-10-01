@@ -1,9 +1,13 @@
-<!-- glucoapp/templates/glucose_chart.html -->
-
 {% extends 'base.html' %}
+
+{% block title %}Grafica{% endblock %}
 {% block content %}
-<h2>Glucose Levels Over Time</h2>
-<div>
-    {{ chart|safe }}
+<div class="flex items-center justify-center min-h-screen bg-gray-100"> <!-- Flexbox para centrar contenido -->
+    <div class="bg-white p-8 rounded-lg shadow w-full max-w-3xl text-center"> <!-- Centramos el texto -->
+        <h2 class="text-3xl font-bold text-slate-800 pb-6">{{ _("Glucose Levels Over Time") }}</h2> <!-- Ajustamos el tamaño del texto -->
+        <div class="chart-container mx-auto">
+            {{ chart|safe }} <!-- Aquí se muestra el gráfico -->
+        </div>
+    </div>
 </div>
 {% endblock %}

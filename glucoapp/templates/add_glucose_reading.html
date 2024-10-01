@@ -1,13 +1,17 @@
 {% extends 'base.html' %}
 
 {% load crispy_forms_tags %}
+{% load tailwind_filters %}
 
 {% block title %}Añadir Lectura{% endblock %}
 {% block content %}
-<h2>Añadir lectura de glucosa</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form|crispy }}
-</form>
+<div class="flex items-center justify-center min-h-screen bg-gray-100">
+    <div class="bg-light_salmon p-8 rounded-lg shadow w-full max-w-md">
+        <h2 class="text-2xl text-slate-800 pb-2">{{ _("Añadir lectura de glucosa")}}</h2>
+        <form method="post">
+            {% csrf_token %}
+            {% crispy form %}
+        </form>
+    </div>
+</div>
 {% endblock %}
-
