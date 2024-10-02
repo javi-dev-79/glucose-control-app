@@ -2,8 +2,8 @@
 
 {% block title %}Grafica{% endblock %}
 {% block content %}
-<div class="flex items-center justify-center min-h-screen bg-gray-100"> <!-- Flexbox para centrar contenido -->
-    <div class="bg-white p-8 rounded-lg shadow w-full max-w-3xl text-center"> <!-- Centramos el texto -->
+<div class="flex items-center justify-center mx-4 my-8 md:my-12"> <!-- Flexbox para centrar contenido -->
+    <div class="bg-white p-8 rounded-lg shadow w-full min-w-3xl text-center"> <!-- Centramos el texto -->
         <h2 class="text-3xl font-bold text-slate-800 pb-6">{{ _("Glucose Levels Over Time") }}</h2> <!-- Ajustamos el tamaño del texto -->
         <div class="chart-container mx-auto">
             {{ chart|safe }} <!-- Aquí se muestra el gráfico -->
