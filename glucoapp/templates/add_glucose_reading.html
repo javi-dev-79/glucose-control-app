@@ -5,9 +5,9 @@
 
 {% block title %}Añadir Lectura{% endblock %}
 {% block content %}
-<div class="flex items-center justify-center min-h-screen bg-gray-100">
-    <div class="bg-light_salmon p-8 rounded-lg shadow w-full max-w-md">
-        <h2 class="text-2xl text-slate-800 pb-2">{{ _("Añadir lectura de glucosa")}}</h2>
+<div class="flex items-center justify-center mx-4 my-8 md:my-12"> <!-- Añadir diferentes márgenes según el tamaño -->
+    <div class="bg-light_salmon py-10 px-8 rounded-lg shadow w-full min-w-xl max-w-2xl my-8"> <!-- Ajustar el margen y el padding -->
+        <h2 class="text-3xl text-slate-800 pb-2">{{ _("Añadir lectura de glucosa") }}</h2>
         <form method="post">
             {% csrf_token %}
             {% crispy form %}
