@@ -8,27 +8,29 @@
 <div class="container mx-auto mt-8">
     <h2 class="text-3xl font-semibold text-gray-800 mb-6 text-center">Your Glucose Readings</h2>
     <div class="overflow-x-auto">  <!-- Contenedor para el scroll horizontal -->
-        <div class="flex justify-center mt-4"> <!-- Contenedor para centrar la tabla -->
-            <table class="min-w-full divide-y divide-gray-200 bg-white shadow-lg rounded-lg">
+        <div class="flex justify-center mt-4 w-full"> <!-- Contenedor para centrar la tabla -->
+            <table class="min-w-[720px] table-auto divide-y divide-gray-200 bg-white shadow-lg rounded-lg">
                 <thead class="bg-petroleum text-white">
                     <tr>
-                        <th scope="col" class="px-4 py-3 text-left uppercase tracking-wider text-lg">Date</th>
-                        <th scope="col" class="px-4 py-3 text-left uppercase tracking-wider text-lg">Level</th>
-                        <th scope="col" class="px-4 py-3 text-left uppercase tracking-wider text-lg">Notes</th>
-                        <th scope="col" class="px-4 py-3 text-left uppercase tracking-wider text-lg">Test Type</th>
-                        <th scope="col" class="px-4 py-3 text-left uppercase tracking-wider text-lg">Location</th>
-                        <th scope="col" class="px-4 py-3 text-left uppercase tracking-wider text-lg">Medium Used</th>
+                        <th scope="col" class="px-2 py-1 text-left uppercase tracking-wider text-lg">Date</th>
+                        <th scope="col" class="px-2 py-1 text-left uppercase tracking-wider text-lg">Level</th>
+                        <th scope="col" class="px-2 py-1 text-left uppercase tracking-wider text-lg">Notes</th>
+                        <th scope="col" class="px-2 py-1 text-left uppercase tracking-wider text-lg">Test Type</th>
+                        <th scope="col" class="px-2 py-1 text-left uppercase tracking-wider text-lg">Location</th>
+                        <th scope="col" class="px-2 py-1 text-left uppercase tracking-wider text-lg">Medium Used</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-200">
                     {% for reading in readings %}
                     <tr class="hover:bg-light_salmon transition-all">
-                        <td class="px-4 py-4 whitespace-nowrap text-sm md:text-lg">{{ reading.date|default_if_none:"" }}</td>
-                        <td class="px-4 py-4 whitespace-nowrap text-sm md:text-lg">{{ reading.level|default_if_none:"" }}</td>
-                        <td class="px-4 py-4 whitespace-nowrap text-sm md:text-lg">{{ reading.notes|default_if_none:"" }}</td>
-                        <td class="px-4 py-4 whitespace-nowrap text-sm md:text-lg">{{ reading.test_type|default_if_none:"" }}</td>
-                        <td class="px-4 py-4 whitespace-nowrap text-sm md:text-lg">{{ reading.location|default_if_none:"" }}</td>
-                        <td class="px-4 py-4 whitespace-nowrap text-sm md:text-lg">{{ reading.medium_used|default_if_none:"" }}</td>
+                        <td class="px-2 py-2 whitespace-normal text-sm md:text-lg">
+                            {{ reading.date|date:"F j, Y" }}<br>{{ reading.date|time:"g:i a" }}
+                        </td>
+                        <td class="px-2 py-2 whitespace-normal text-sm md:text-lg">{{ reading.level|default_if_none:"" }}</td>
+                        <td class="px-2 py-2 break-words whitespace-normal text-sm md:text-lg">{{ reading.notes|default_if_none:"" }}</td>
+                        <td class="px-2 py-2 whitespace-normal text-sm md:text-lg">{{ reading.test_type|default_if_none:"" }}</td>
+                        <td class="px-2 py-2 whitespace-normal text-sm md:text-lg">{{ reading.location|default_if_none:"" }}</td>
+                        <td class="px-2 py-2 whitespace-normal text-sm md:text-lg">{{ reading.medium_used|default_if_none:"" }}</td>
                     </tr>
                     {% empty %}
                     <tr>
